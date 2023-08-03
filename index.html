@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Mine-Sweeper</title>
+</head>
+
+<body onload="onInit()">
+    <h1>Mine-Sweeper</h1>
+    <div class="user-details">
+        <div class="shown">Shown Nums: <span>0</span></div>
+        <div class="mines">Mines Count: <span>0</span></div>
+        <div class="lives">Lifes: <span>3</span></div>
+    </div>
+    <div class="timer">⏱️ <span>00:00</span></div>
+
+    <button class="emoji" onclick="onInit()"><span>😀</span></button>
+    <table class="board">
+        <tbody class="board-cells">
+        </tbody>
+    </table>
+    <div class="diff-buttons">
+        <button class="diff" onclick="changeDifficult(4)">Easy</button>
+        <button class="diff" onclick="changeDifficult(8)">Medium</button>
+        <button class="diff" onclick="changeDifficult(12)">Hard</button>
+    </div>
+    <div class="safe-click-area">
+        <button class="safebtn" onclick="getSafeClick()">Safe Click</button>
+        <div class="safetext">Safe click left: <span>3</span></div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>

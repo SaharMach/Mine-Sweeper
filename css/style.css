@@ -1,0 +1,135 @@
+/*.board {
+    height: 300px;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    background-color: rgb(236, 239, 239);
+}*/
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #282828, #483d8b);
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1em;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.board {
+    border: 2px solid #000;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: #f2f3f4;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+
+.user-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    width: 500px;
+    max-width: auto;
+    padding: 20px;
+    margin: 20px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 1em;
+}
+
+.timer {
+    align-items: center;
+    font-size: 1em;
+}
+
+
+.cell {
+    height: 40px;
+    width: 40px;
+    background-color: #cecaca;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.cell:hover {
+    transform: scale(1.05);
+    background: #bdc3c7;
+}
+
+.hidden {
+    color: transparent;
+    background-color: #8e8f8f;
+}
+
+.emoji {
+    font-size: 1em;
+    border-radius: 8px;
+    background: linear-gradient(to right, #282828, #483d8b);
+    border-color: black;
+    margin-top: 20px;
+    text-align: center;
+    cursor: pointer;
+
+}
+
+.diff {
+    border: none;
+    background: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.diff:hover {
+    background: #2980b9;
+}
+
+.diff-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.safe-click-area {
+    text-align: center;
+}
+
+.safebtn {
+    border: none;
+    background: #66f1f8;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.safe-click {
+    background-color: #66f1f8;
+}
+
+.safetext {
+    align-items: center;
+    font-size: 0.8em;
+    font-family: 'Courier New', Courier, monospace;
+}
