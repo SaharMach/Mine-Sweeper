@@ -39,11 +39,13 @@ var gSafeClicks
 
 
 
+
 function onInit() {
     gBoard = createBoard()
     //console.table('gBoard:', gBoard)
     setMinesNegsCount()
     renderBoard(gBoard)
+    gGame.isOn = true
     gMinesCount = gLevel.MINES
     elMinesCount.innerText = gMinesCount
     clearInterval(gTimerIntervalId)
@@ -58,6 +60,7 @@ function onInit() {
     elLive.innerText = gUserLives
     elSafe.innerText = gSafeClicks
 }
+
 
 
 
@@ -150,6 +153,7 @@ function renderBoard() {
 
 
 function onCellClicked(elBtn) {
+    if (!gGame.isOn) return
     const i = +elBtn.dataset.i
     const j = +elBtn.dataset.j
     //console.log(i, j)
@@ -158,8 +162,6 @@ function onCellClicked(elBtn) {
         setTimeout(expandShown(i, j), 2000)
         isHint = false
     }*/
-
-
 
 
     const cell = gBoard[i][j]
@@ -184,10 +186,13 @@ function onCellClicked(elBtn) {
             elBtn.classList.remove('hidden')
             cell.isShown = true
             gUserLives--
-            gMinesCount--
+            if (gMinesCount > 0) {
+                gMinesCount--
+            }
             elLive.innerText = gUserLives
             elMinesCount.innerText = gMinesCount
             if (gUserLives === 0) {
+                gGame.isOn = false
                 alert('you lost!')
                 elEmoji.innerText = '😭'
                 clearInterval(gTimerIntervalId)
@@ -207,6 +212,8 @@ function onCellClicked(elBtn) {
 
 }
 
+
+
 //work!!
 function showMinesAfterLose() {
     for (var i = 0; i < gBoard.length; i++) {
@@ -220,6 +227,8 @@ function showMinesAfterLose() {
     }
 }
 
+
+
 function onCellMarked(ev, elBtn) {
     ev.preventDefault() //disabling rightclick content
     const i = +elBtn.dataset.i
@@ -232,7 +241,10 @@ function onCellMarked(ev, elBtn) {
         gGame.shownCount++
         const elShown = document.querySelector('.shown span')
         elShown.innerText = gGame.shownCount
-        gMinesCount--
+        if (gMinesCount > 0) {
+            gMinesCount--
+        }
+
     }
     elMinesCount.innerText = gMinesCount
     console.log('gMinesCount:', gMinesCount)
@@ -250,6 +262,7 @@ function onCellMarked(ev, elBtn) {
 }
 
 
+
 /*function getHint(){
 
 }*/
@@ -257,7 +270,7 @@ function onCellMarked(ev, elBtn) {
 
 
 //done!
-function getSafeClick() {
+function getSafeCell() {
     if (gSafeClicks === 0) return
     var safeClicksArr = []
     for (var i = 0; i < gBoard.length; i++) {
