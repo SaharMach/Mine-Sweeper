@@ -9,7 +9,7 @@ var gLevel = {
     MINES: 2
 }
 
-//console.log(gLevel.SIZE);
+
 
 var gGame = {
     isOn: false,
@@ -78,9 +78,6 @@ function createBoard() {
     }
 
     randMine(board)
-
-    //board[2][3].isMine = true
-    //board[1][1].isMine = true
     return board
 }
 
@@ -385,7 +382,8 @@ function checkGameOver() {
             //console.log('revealedMines:', revealedMines)
         }
     }
-    if (revealedMines <= 3 && flaggedMines === gLevel.MINES - revealedMines && gBoard.length * gBoard[0].length - gLevel.MINES === revealedNums) {
+    if (revealedMines <= 3 && flaggedMines === gLevel.MINES - revealedMines &&
+        gBoard.length * gBoard[0].length - gLevel.MINES === revealedNums) {
         alert('u won')
         const elEmoji = document.querySelector('.emoji span')
         elEmoji.innerText = '😎'

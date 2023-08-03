@@ -67,7 +67,6 @@ h1 {
 }
 
 .cell:hover {
-    transform: scale(1.05);
     background: #bdc3c7;
 }
 
@@ -114,7 +113,6 @@ h1 {
 }
 
 .safebtn {
-    border: none;
     background: #66f1f8;
     color: #fff;
     padding: 10px 20px;
@@ -126,6 +124,10 @@ h1 {
 
 .safe-click {
     background-color: #66f1f8;
+}
+
+.safebtn:hover {
+    background: #67c3c8;
 }
 
 .safetext {
