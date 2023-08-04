@@ -17,22 +17,26 @@
         <div class="mines">Mines Count: <span>0</span></div>
         <div class="lives">Lives: <span>3</span></div>
     </div>
-    <div class="timer">⏱️ <span>00:00</span></div>
 
+    <div class="timer">⏱️ <span>00:00</span></div>
     <button class="emoji" onclick="changeDifficult(4)"><span>😀</span></button>
     <table class="board">
         <tbody class="board-cells">
         </tbody>
     </table>
+
+    <div class="safe-click-area">
+        <button class="safebtn" onclick="getSafeCell()">Safe Click</button>
+        <div class="safetext">Safe click left: <span>3</span></div>
+        <button class="hint" onclick="getHint()"><span>🕵🏼</span></button>
+        <div class="hinttext">Hints Left: <span>3</span></div>
+    </div>
     <div class="diff-buttons">
         <button class="diff" onclick="changeDifficult(4)">Easy</button>
         <button class="diff" onclick="changeDifficult(8)">Medium</button>
         <button class="diff" onclick="changeDifficult(12)">Hard</button>
     </div>
-    <div class="safe-click-area">
-        <button class="safebtn" onclick="getSafeCell()">Safe Click</button>
-        <div class="safetext">Safe click left: <span>3</span></div>
-    </div>
+
 
     <script src="js/app.js"></script>
 </body>

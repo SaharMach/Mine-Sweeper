@@ -25,6 +25,8 @@ const elSafe = document.querySelector('.safetext span')
 const elShown = document.querySelector('.shown span')
 const elEmoji = document.querySelector('.emoji span')
 const elLive = document.querySelector('.lives span')
+const elHint = document.querySelector('.hint')
+const elHintText = document.querySelector('.hinttext span')
 const MINE = '💥'
 const FLAG = '🚩'
 
@@ -35,7 +37,7 @@ var gUserLives
 var isHint = false
 var gTimerIntervalId
 var gSafeClicks
-
+var gHintsLeft
 
 
 
@@ -55,6 +57,8 @@ function onInit() {
     gUserLives = 3
     gGame.shownCount = 0
     gSafeClicks = 3
+    gHintsLeft = 3
+    elHintText.innerText = gHintsLeft
     elShown.innerText = gGame.shownCount
     elEmoji.innerText = '😀'
     elLive.innerText = gUserLives
@@ -87,7 +91,6 @@ function createBoard() {
 
 
 //looking for a random place on the board to put my mines in. 
-
 function randMine(board) {
     var minesToPlace = 0;
     gMinesCount = 0
@@ -113,7 +116,6 @@ function randMine(board) {
 
 
 }
-
 
 
 
@@ -157,18 +159,14 @@ function onCellClicked(elBtn) {
     const i = +elBtn.dataset.i
     const j = +elBtn.dataset.j
     //console.log(i, j)
-    /*if (isHint === true) {
-        console.log('im here')
-        setTimeout(expandShown(i, j), 2000)
-        isHint = false
-    }*/
+    console.log('isHint:', isHint)
 
 
     const cell = gBoard[i][j]
     if (cell.isMarked) return
     if (cell.isShown) return
     console.log('cell.isShown:', cell.isShown)
-    if (cell.isShown === false) {
+    if (cell.isShown === false && !isHint) {
 
         cell.isShown = true
         console.log('cell.isShown:', cell.isShown)
@@ -208,9 +206,15 @@ function onCellClicked(elBtn) {
             checkGameOver()
         }
         checkGameOver()
+    } else if (isHint) {
+        console.log('hint activated!');
+        revealHintCells(i, j)
+        gHintsLeft--
+        elHintText.innerText = gHintsLeft
     }
 
 }
+
 
 
 
@@ -226,6 +230,7 @@ function showMinesAfterLose() {
         }
     }
 }
+
 
 
 
@@ -263,10 +268,34 @@ function onCellMarked(ev, elBtn) {
 
 
 
-/*function getHint(){
+function getHint() {
+    if (gHintsLeft === 0) return
+    isHint = true
+    elHint.classList.add('light')
+}
 
-}*/
 
+//work!!!
+function revealHintCells(rowIdx, colIdx) {
+    for (let i = rowIdx - 1; i <= rowIdx + 1; i++) {
+        if (i < 0 || i >= gBoard.length) continue
+        for (let j = colIdx - 1; j <= colIdx + 1; j++) {
+            if (j < 0 || j >= gBoard[0].length) continue
+            let elCell = document.querySelector(`[data-i="${i}"][data-j="${j}"]`)
+            console.log('elCell:', elCell)
+            elCell.classList.remove('hidden')
+            setTimeout(() => {
+                console.log('entered!!');
+                elCell.classList.add('hidden')
+                isHint = false
+                elHint.classList.remove('light')
+                console.log('elCell:', elCell)
+            }, 2000);
+        }
+    }
+
+
+}
 
 
 //done!
@@ -324,6 +353,7 @@ function expandShown(rowIdx, colIdx) {
 
 
 
+
 function setMinesNegsCount() {
     for (var i = 0; i < gBoard.length; i++) {
         for (var j = 0; j < gBoard[0].length; j++) {
@@ -333,6 +363,7 @@ function setMinesNegsCount() {
         }
     }
 }
+
 
 
 
@@ -350,6 +381,7 @@ function countNegMines(rowIdx, colIdx) {
     //console.log('count:', count)
     return count
 }
+
 
 
 
@@ -375,6 +407,7 @@ function changeDifficult(num) {
     }
     return
 }
+
 
 
 
@@ -407,6 +440,7 @@ function checkGameOver() {
     return false
 
 }
+
 
 
 

@@ -130,7 +130,49 @@ h1 {
 }
 
 .safetext {
+    justify-content: space-between;
     align-items: center;
-    font-size: 0.8em;
-    font-family: 'Courier New', Courier, monospace;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    width: 250px;
+    max-width: auto;
+    padding: 6px;
+    margin: 6px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 0.7em;
+}
+
+
+.light {
+    background: rgb(240, 240, 143);
+}
+
+
+.hint-cells {
+    background: orange;
+}
+
+.hint {
+    font-size: 1.1em;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hinttext {
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    width: 250px;
+    max-width: auto;
+    padding: 6px;
+    margin: 6px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 0.7em;
+
 }
