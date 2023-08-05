@@ -61,6 +61,7 @@ h1 {
     border-radius: 10px;
     text-align: center;
     cursor: pointer;
+    color: black;
 }
 
 .cell:hover {
@@ -112,7 +113,7 @@ h1 {
 }
 
 .safebtn {
-    background: #66f1f8;
+    background: #46dbe3;
     color: #fff;
     padding: 10px 20px;
     border-radius: 20px;
