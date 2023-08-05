@@ -209,3 +209,8 @@ h1 {
     font-size: 0.7em;
     font-family: 'Courier New', Courier, monospace;
 }
+
+footer {
+    font-size: 10px;
+    padding-top: 30px;
+}
