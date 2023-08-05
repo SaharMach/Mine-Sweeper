@@ -20,11 +20,9 @@ var gGame = {
 }
 
 
-//model
 var gBoard
 var gMinesCount = 0
 var gUserLives
-//var isFirstClick = true
 var isHint = false
 var gTimerIntervalId
 var gSafeClicks
@@ -32,8 +30,9 @@ var gHintsLeft
 var gLastMoves = []
 var gMinesToDestroy
 var gMinesOnBoard = []
+var isDarkMode = false
 
-//dom
+
 const elMinesCount = document.querySelector('.mines span')
 const elTimer = document.querySelector('.timer span')
 const elSafe = document.querySelector('.safetext span')
@@ -48,7 +47,6 @@ const FLAG = '🚩'
 
 function onInit() {
     gBoard = createBoard()
-    //console.table('gBoard:', gBoard)
     setMinesNegsCount()
     renderBoard(gBoard)
     getAllMines()
@@ -64,7 +62,6 @@ function onInit() {
     gSafeClicks = 3
     gHintsLeft = 3
     gMinesToDestroy = 3
-
     elHintText.innerText = gHintsLeft
     elShown.innerText = gGame.shownCount
     elEmoji.innerText = '😀'
@@ -182,8 +179,7 @@ function onCellClicked(elBtn) {
             gGame.isTimerOn = true
             console.log('gGame.isTimerOn:', gGame.isTimerOn)
         }
-        if (cell.isShown && !cell.isMine) {
-
+        if (cell.isShown && !cell.isMine && !cell.isMarked) {
             gGame.shownCount++
             elShown.innerText = gGame.shownCount
         }
@@ -209,7 +205,6 @@ function onCellClicked(elBtn) {
             //onInit()
         }
         else if (cell.minesAroundCount > 0) {
-            //calling my reveal function if my curr cell mines around is bigger or equal to 0
             expandShown(i, j)
             checkGameOver()
         }
@@ -247,18 +242,10 @@ function onCellMarked(ev, elBtn) {
     const i = +elBtn.dataset.i
     const j = +elBtn.dataset.j
     const cell = gBoard[i][j]
-
     cell.isMarked = !cell.isMarked
     if (cell.isShown) return
-    if (cell.isMine === true) {
-        gGame.shownCount++
-        const elShown = document.querySelector('.shown span')
-        elShown.innerText = gGame.shownCount
-        if (gMinesCount > 0) {
-            gMinesCount--
-        }
+    if (cell.isMine && gMinesCount > 0) gMinesCount--
 
-    }
     elMinesCount.innerText = gMinesCount
     console.log('gMinesCount:', gMinesCount)
     var lastContent = cell.lastContent
@@ -273,6 +260,7 @@ function onCellMarked(ev, elBtn) {
     }
 
 }
+
 
 
 
@@ -291,24 +279,29 @@ function getAllMines() {
 
 }
 
+
+
 //work!!
 function exterminatorMines() {
     if (gMinesToDestroy === 0) return
     // console.log('gMinesOnBoard:', gMinesOnBoard)
     while (gMinesToDestroy > 0) {
-        var randMineIdx = getRandomInt(0, gMinesOnBoard.length - 1)
+        var randMineIdx = getRandomInt(0, gMinesOnBoard.length)
         //console.log('im inside');
         var currMine = gMinesOnBoard[randMineIdx]
         //console.log(gMinesOnBoard[randMineIdx])
         var i = currMine.dataset.i
         var j = currMine.dataset.j
+        gBoard[i][j].isShown = true
         const elCell = document.querySelector(`[data-i="${i}"][data-j="${j}"]`)
         elCell.classList.remove('hidden')
         if (gMinesCount > 0) gMinesCount--
         elMinesCount.innerText = gMinesCount
         gMinesToDestroy--
     }
+    checkGameOver()
 }
+
 
 
 //work!!!!
@@ -376,6 +369,7 @@ function revealHintCells(rowIdx, colIdx) {
 
 
 }
+
 
 
 //done!
@@ -506,6 +500,7 @@ function checkGameOver() {
         for (var j = 0; j < gBoard[0].length; j++) {
             var currCell = gBoard[i][j]
             if (currCell.isMine && currCell.isShown) revealedMines++
+            //console.log('revealedMines:', revealedMines)
             if (currCell.isShown && !currCell.isMine) revealedNums++
             if (currCell.isMarked && currCell.isMine) flaggedMines++
             //console.log('flaggedMines:', flaggedMines)
@@ -513,7 +508,7 @@ function checkGameOver() {
             //console.log('revealedMines:', revealedMines)
         }
     }
-    if (revealedMines <= 3 && flaggedMines === gLevel.MINES - revealedMines &&
+    if (flaggedMines === gLevel.MINES - revealedMines &&
         gBoard.length * gBoard[0].length - gLevel.MINES === revealedNums) {
         //alert('u won')
         const elEmoji = document.querySelector('.emoji span')
@@ -527,6 +522,16 @@ function checkGameOver() {
 }
 
 
+function activeDarkMode() {
+    var rel = document.querySelector('link')
+    if (!isDarkMode) {
+        isDarkMode = !isDarkMode
+        rel.href = 'css/darkmode.css'
+    } else {
+        rel.href = 'css/style.css'
+        isDarkMode = !isDarkMode
+    }
+}
 
 
 function startTimer() {

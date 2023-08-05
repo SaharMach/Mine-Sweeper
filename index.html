@@ -12,7 +12,9 @@
 
 <body onload="onInit()">
     <h1>Mine-Sweeper</h1>
-
+    <div class="darkmode-area">
+        DARK MODE<input type="checkbox" onclick="activeDarkMode()">
+    </div>
     <div class="user-details">
         <div class="shown">Shown Nums: <span>0</span></div>
         <div class="mines">Mines Count: <span>0</span></div>
@@ -23,7 +25,7 @@
     <div class="btn-top-area">
         <button title="Undo Button" class="undo-btn" onclick="getUndo()">↩️</button>
         <button title="Restart button" class="emoji" onclick="changeDifficult(4)"><span>😀</span></button>
-        <button title="Revealing 3 random mines" class="exterminator" onclick="exterminatorMines()">💣</button>
+        <button title="Reveal 3 random mines" class="exterminator" onclick="exterminatorMines()">💣</button>
     </div>
 
     <table class="board">
